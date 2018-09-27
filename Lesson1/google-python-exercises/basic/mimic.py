@@ -1,4 +1,5 @@
-#!/usr/bin/python -tt
+#!/usr/bin/env python3
+# -tt
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -44,23 +45,44 @@ columns, so the output looks better.
 import random
 import sys
 
-
 def mimic_dict(filename):
-  """Returns mimic dict mapping each word to list of words which follow it."""
-  # +++your code here+++
-  return
-
-
+    """Returns mimic dict mapping each word to list of words which follow it."""
+    # mettre le fichier en memoire ... voir plus tard ce qu'il y aurait de mieux ...
+    f = open(filename, 'r')
+    mimicdic = {}
+    previous = ''
+    for word in f.read().lower().split():
+        if word is not None:
+#            print('word: ',previous,'|',word)
+            if not previous in mimicdic:
+                mimicdic[previous] = [str(word)]
+#                print('done',mimicdic[previous])
+            else:
+#                print('debug',previous,mimicdic.get(previous),word)
+                mimicdic[previous].append(str(word)) # c'est la que ca merdiat vu que previous est une liste donc un pointeur si je reaffecte parfois je la perds...
+            previous = str(word)
+    f.close()
+#    print(mimicdic)
+    return mimicdic
+    
 def print_mimic(mimic_dict, word):
-  """Given mimic dict and start word, prints 200 random words."""
-  # +++your code here+++
-  return
+    """Given mimic dict and start word, prints 200 random words."""
+    prevword = word
+    for i in range(10):
+        candids = mimic_dict.get(prevword)
+        if not candids:
+            candids = mimic_dict.get('')
+        nextword = random.choice(candids)
+        print(nextword, end=' ')
+        prevword=nextword
+    print() #juste pour un cr vu qu'avant on mettait des espaces...
+    return
 
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
   if len(sys.argv) != 2:
-    print 'usage: ./mimic.py file-to-read'
+    print('usage: ./mimic.py file-to-read')
     sys.exit(1)
 
   dict = mimic_dict(sys.argv[1])
