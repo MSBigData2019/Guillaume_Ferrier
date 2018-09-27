@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -35,34 +35,49 @@ Suggested milestones for incremental development:
 """
 
 def extract_names(filename):
-  """
-  Given a file name for baby.html, returns a list starting with the year string
-  followed by the name-rank strings in alphabetical order.
-  ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
-  """
-  # +++your code here+++
-  return
-
+    """
+    Given a file name for baby.html, returns a list starting with the year string
+    followed by the name-rank strings in alphabetical order.
+    ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
+    """
+    output = []
+    f = open(filename, 'r').read()
+    year = re.search(r"Popularity in ([0-9]*)", f).group(1)
+    #print(year)
+    output.append(year)
+    toto = re.findall(r'<tr align="right"><td>(\d+)</td><td>(\w+)</td><td>(\w+)</td>', f)#.groups()
+    allinone = sorted([xy[1::-1] for xy in toto]+[xx[2::-2] for xx in toto],key=lambda t:t[0])
+    output.extend(x[0]+" "+x[1] for x in allinone)
+    return(output)
+    #print(onerank,oneboy,o[max(a,key=lambda x:x[1]) for a in zip(*A)]negirl)
 
 def main():
-  # This command-line parsing code is provided.
-  # Make a list of command line arguments, omitting the [0] element
-  # which is the script itself.
-  args = sys.argv[1:]
+    # This command-line parsing code is provided.
+    # Make a list of command line arguments, omitting the [0] element
+    # which is the script itself.
+    args = sys.argv[1:]
 
-  if not args:
-    print 'usage: [--summaryfile] file [file ...]'
-    sys.exit(1)
+    if not args:
+        print('usage: [--summaryfile] file [file ...]')
+        sys.exit(1)
+    # Notice the summary flag and remove it from args if it is present.
+    summary = False
+    if args[0] == '--summaryfile':
+        summary = True
+        del args[0]
 
-  # Notice the summary flag and remove it from args if it is present.
-  summary = False
-  if args[0] == '--summaryfile':
-    summary = True
-    del args[0]
+    # un seul fichier "summary" pour l'ensemble ??
+    if summary: output = open('summary','w')
 
-  # +++your code here+++
-  # For each filename, get the names, then either print the text output
-  # or write it to a summary file
-  
+    for file2process in args:
+        onelist = extract_names(file2process)
+        if summary: output.write(onelist.__str__()+'\n')
+        else: print(onelist)
+
+    if summary: output.close()
+
+# For each filename, get the names, then either print the text output
+    # or write it to a summary file
+
 if __name__ == '__main__':
-  main()
+     main()
