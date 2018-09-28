@@ -43,6 +43,16 @@ def last2(string):
 # Test it with the Lorem upsuj
 #"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 def occurences(text):
+    #corrrection proposee
+    # result = {}
+    # lower_text = text.lower()
+    # for character in lower_text():
+    #     if character in result:
+    #         result[character] += 1
+    #     else
+    #         result[character] = 1
+    # del result[' ']
+    # return result
     toto = {}
     ss = s.ascii_letters
     for word in text.split(' '):
@@ -62,16 +72,40 @@ def length_words(array):
 #Write a function that takes a number and returns a list of its digits.
 def number2digits(number):
     return [int(x) for x in list(str(number))]
+# correction : pas besoin du list
+#   return [int(z) for z in str(number)]
 
 #Write function that translates a text to Pig Latin and back.
 #English is translated to Pig Latin by taking the first letter of every word,
 #moving it to the end of the word and adding 'ay'
 def pigLatin(text):
-  return
+    splittext = text.split(' ')
+    output = []
+    for word in splittext:
+        toupper1=word[0].isupper()
+        if len(word) == 1:
+            output.append(word+'ay')
+        elif toupper1:
+            output.append(word[1:].capitalize()+word[0].lower()+'ay')
+        else:
+            output.append(word[1:]+word[0]+'ay')
+    return ' '.join(output)
 
 
 #write fizbuzz programm
+#ecrire programme qui va de 1 à 100
+#3 fizz
+#5 buzz
+#mult 3 et mult 15 fizzbuzz
+
 def fizbuzz():
+    for i in range(1,100):
+        a=""
+        b=""
+        if i%3==0:a='fiz'
+        if i%5==0:b='buzz'
+        if (len(a) >0 or len(b)>0) : print(a+b)
+        else: print(i)
     return
 
 
