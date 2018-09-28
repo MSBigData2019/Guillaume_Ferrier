@@ -38,6 +38,14 @@ def last2(string):
         if string[i:i+2] == endp:cptr += 1
         i += 1
     return cptr
+   # correction bah j'avais bon au while vs for pres :
+   # pattern = string[-2:]
+   # count = 0
+   # for i in range(0,len(string)-3):
+   #     substring = string[i:i+2]
+   #     if substring == pattern:
+   #         count += 1
+   # return count
 
 #Write a proramm that returna dictionary of occurences of the alphabet for a given string.
 # Test it with the Lorem upsuj
@@ -144,6 +152,7 @@ response = {
 
 #Given the above response object extract a array of records with columns nombre_de_reservations , auteur and timestamp
 def flatten():
+    results = {}
     return
 
 
