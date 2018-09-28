@@ -11,21 +11,21 @@ def string_times(string, n):
 # Given an array of ints, return True if one of the first 4 elements
 # in the array is a 9. The array length may be less than 4.
 def array_front9(nums):
-    for index, element in enumerate(nums):
-        if ( index < 4 and element == 9) : return True
-    return False
+#    for index, element in enumerate(nums):
+#        if ( index < 4 and element == 9) : return True
+#    return False
 
-# Mine was :
-#     longueur=min(len(nums),4)
-#     i = 0
-#     rep = False
-#     while i< longueur:
-#         if nums[i] == '9':
-#             rep = True
-#             break
-#         else:
-#             i += 1
-#     return rep
+# Mine was almost working but ugglier ...:
+    longueur=min(len(nums),4)
+    i = 0
+    rep = False
+    while i< longueur:
+        if nums[i] == 9:
+            rep = True
+            break
+        else:
+            i += 1
+    return rep
 
 # Given a string, return the count of the number of times
 # that a substring length 2 appears  in the string and also as
@@ -61,8 +61,7 @@ def length_words(array):
 
 #Write a function that takes a number and returns a list of its digits.
 def number2digits(number):
-    stringn = list(str(number))
-    return
+    return [int(x) for x in list(str(number))]
 
 #Write function that translates a text to Pig Latin and back.
 #English is translated to Pig Latin by taking the first letter of every word,
