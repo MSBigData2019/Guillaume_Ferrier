@@ -1,3 +1,4 @@
+# coding: utf-8
 import unittest
 import string as s
 
@@ -10,14 +11,21 @@ def string_times(string, n):
 # Given an array of ints, return True if one of the first 4 elements
 # in the array is a 9. The array length may be less than 4.
 def array_front9(nums):
-    longueur=min(len(nums) & 4)
-    i = 0
-    rep = False
-    while i< longueur:
-        if nums[i] == '9':
-            rep = True
-            break
-    return rep
+    for index, element in enumerate(nums):
+        if ( index < 4 and element == 9) : return True
+    return False
+
+# Mine was :
+#     longueur=min(len(nums),4)
+#     i = 0
+#     rep = False
+#     while i< longueur:
+#         if nums[i] == '9':
+#             rep = True
+#             break
+#         else:
+#             i += 1
+#     return rep
 
 # Given a string, return the count of the number of times
 # that a substring length 2 appears  in the string and also as
@@ -26,8 +34,9 @@ def last2(string):
     endp = string[-2:]
     i = 0
     cptr = 0
-    while i<len(string)-2:
-        if string[i:i+3] == endp:cptr += 1
+    while i<(len(string)-2):
+        if string[i:i+2] == endp:cptr += 1
+        i += 1
     return cptr
 
 #Write a proramm that returna dictionary of occurences of the alphabet for a given string.
@@ -35,10 +44,10 @@ def last2(string):
 #"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 def occurences(text):
     toto = {}
-    s.ascii_letters
+    ss = s.ascii_letters
     for word in text.split(' '):
         for lettre in word:
-            if lettre in s:
+            if lettre in ss:
                 if lettre in toto.keys():
                     toto[lettre] = toto[lettre].append([word])
                 else:
@@ -50,10 +59,10 @@ def occurences(text):
 def length_words(array):
     return [len(w) for w in array]
 
-
 #Write a function that takes a number and returns a list of its digits.
 def number2digits(number):
-  return
+    stringn = list(str(number))
+    return
 
 #Write function that translates a text to Pig Latin and back.
 #English is translated to Pig Latin by taking the first letter of every word,
