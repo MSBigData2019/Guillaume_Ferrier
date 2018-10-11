@@ -26,29 +26,22 @@ def recherche_stock_url(query):
 
 #page de retour de la recherche en :
 #<div id="quoteKeymatch">
-#[<div class=" :  module module-content search-stock
+#[<div class=" :  module module-content puis search-stock
 #<div class="search-stock-ticker">
 #<a href="/finance/stocks/overview/AIR.PA">
 # lien resolu https://www.reuters.com/finance/stocks/overview/AIR.PA
 # onglet utile ensuite https://www.reuters.com/finance/stocks/financial-highlights/AIR.PA
-
+# Fils immediat donc a on recupere la propriete href
     urlrelative = soup.find("div",class_="search-stock-ticker").findNext()["href"]
     # V1 regexp remplace, V2 todo extraire le code url et generer l'url
     urlongletfinance = re.sub(r'overview','financial-highlights',urlrelative)
-
     return basesite+urlongletfinance
-
-# TODO FOR sur array de compagnies
-compname = 'airbus'
-
-#print("DEBUG URL",recherche_stock_url(compname))
 
 def parsealldataurl(query):
     urlcontent = recherche_stock_url(query)
     soup = BeautifulSoup(requests.get(urlcontent).content, "html.parser")
 
 # * les ventes au quartier à fin décembre 2018
-
 #<tbody>
 #		<tr>
 #			<th>&nbsp;</th>
@@ -70,6 +63,7 @@ def parsealldataurl(query):
 #			<td class="data">--</td>
 #		</tr>
 
+# a voir si on repart de plus haut ...
 #sales = soup.find("td",string="SALES (in millions)")
 #print(sales.parent.findNext('tr').select('td.data'))
 
@@ -84,7 +78,7 @@ def parsealldataurl(query):
     # du coup on est bon on recupere le second voisin vu que la colonne intermediaire est inutile
     quarterdec18 = quarterfirstelemP.find_next_siblings()[1].string.strip()
 
-    # TODO voir si ya moyen de recuperer la position de la colonne d apres le header... trop long
+    # TODO voir si ya moyen de recuperer la position de la colonne d apres le header... trop long ...
     # TODO : filtres et accesseurs quelle difference entre .string ou .text ou .get_text() ?
 
 # * le prix de l'action et son % de changement au moment du crawling
@@ -116,6 +110,7 @@ def parsealldataurl(query):
 #				</div>
 
 #on part du priceChange et on cherche le 5e span...
+#ne pas utiliser les classes parceque ca doit bouger si c'est une hausse ou une baisse
     pourcentchg = soup.find("div", class_="sectionQuote priceChange").find_all("span")[4].text.strip()
 
 # * le % Shares Owned des investisseurs institutionels
