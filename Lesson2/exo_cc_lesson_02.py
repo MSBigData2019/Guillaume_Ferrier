@@ -4,6 +4,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import numpy as np
 import pandas as pd
 
 # sur rue du commerce quelle marque a la plus grosse remise
@@ -21,19 +22,20 @@ inputlist = ["dell__DELL.html", "hp__HP.html"]
 #<div class="prix_barre_liste">
 #<p class="darty_prix_barre_remise darty_small separator_top">- 31%</p>
 
-company = 'dell__DELL.html'
+company = 'dell'
 
-soup = BeautifulSoup(requests.get(baseurl+company).content, "html.parser")
+soup = BeautifulSoup(requests.get(baseurl+company+'__'+company.upper()+'.html').content, "html.parser")
 #print(soup)
+brand = []
 for elem in soup.findAll("span",class_="darty_prix darty_normal"):
     remise = elem.parent.find_next_sibling().find("p",class_="darty_prix_barre_remise darty_small separator_top")
     if remise == None:
-        pourcent = 0
+        pourcent = 0.
     else:
-        pourcent=re.sub(r'[ %].string
-    print(pourcent)
+        pourcent = float(re.sub(r'[ %]','',remise.string))
+    brand.append(pourcent)
 
-#print(s)
+print(np.mean(brand))
 
 
 
