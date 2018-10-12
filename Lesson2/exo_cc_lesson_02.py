@@ -24,17 +24,22 @@ inputlist = ["dell__DELL.html", "hp__HP.html"]
 company = 'dell__DELL.html'
 
 soup = BeautifulSoup(requests.get(baseurl+company).content, "html.parser")
-print(soup)
-for elem in soup.findAll("span",class_="darty_prix darty_normal")
-    rem = elem.parent.findAll("p",class_="darty_prix_barre_remise darty_small separator_top")
-    print(r)
-print(s)
+#print(soup)
+for elem in soup.findAll("span",class_="darty_prix darty_normal"):
+    remise = elem.parent.find_next_sibling().find("p",class_="darty_prix_barre_remise darty_small separator_top")
+    if remise == None:
+        pourcent = 0
+    else:
+        pourcent=re.sub(r'[ %].string
+    print(pourcent)
+
+#print(s)
 
 
 
 
 
-print(s)
+#print(s)
 #    # V1 regexp remplace, V2 todo extraire le code url et generer l'url
 #    urlongletfinance = re.sub(r'overview','financial-highlights',urlrelative)
 #    return basesite+urlongletfinance
