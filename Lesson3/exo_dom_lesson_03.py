@@ -11,7 +11,7 @@ import pandas as pd
 #- En utilisant l'API github https://developer.github.com/v3/ récupérer pour chacun de ces users le nombre moyens de stars des repositories qui leur appartiennent.
 # Pour finir classer ces 256 contributors par leur note moyenne.﻿
 
-mytoken = '7ba01876b8be8900fad8744c12a476fd2ca8e3a5'
+mytoken = 'f09c19c5e3e4a3255483b00ad63199aabba46152'
 #Etape 1 Crawler la page suivante pour recuperer les 256 utilisateurs
 #https://gist.github.com/paulmillr/2657075
 #la page est assez clean et on n'a que ce tableau qui utilse le scope row, cool
@@ -76,5 +76,13 @@ for th in thscoperow:
 # on a tout collecté il n'y a plus qu'à trier
 df.sort_values(by='avgstars', ascending=False, inplace=True)
 
-for i in xrange(len(df)):
-    print(i+1,' ',result[i]['user'],' (',result[i]['avgstars'],' avg stars)')
+df.to_pickle('sauvegarde.pkl')
+
+#for i in range(len(df)):
+#    print(i+1, ' ', df[i]['user'],' (', df[i]['avgstars'], ' avg stars)')
+
+pd.set_option('display.max_columns', None)  # or 1000
+pd.set_option('display.max_rows', None)  # or 1000
+pd.set_option('display.max_colwidth', -1)  # or 199
+
+print(df)
